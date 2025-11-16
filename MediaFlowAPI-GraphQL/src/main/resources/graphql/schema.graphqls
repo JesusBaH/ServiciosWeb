@@ -1,0 +1,48 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Query {
+    userHistory(userId: ID!, page: Int, pageSize: Int): [PlaybackHistoryResponse]
+}
+
+type Mutation {
+    createHistory(req: PlaybackHistoryRequest): PlaybackHistoryResponse
+    deleteHistory(historyId: ID!): Boolean
+    clearUserHistory(userId: ID!): Boolean
+}
+
+type PlaybackHistoryResponse {
+    playbackHistoryId: ID!
+    watchedSeconds: Int
+    userAgent: String
+    viewedAt: String
+    user: UserResponse 
+    content: ContentResponse 
+}
+
+type UserResponse {
+    userId: ID!
+    name: String
+    email: String
+    dateBirth: String
+}
+
+type ContentResponse {
+    contentId: ID!
+    title: String
+    contentType: String
+    description: String
+    recommendedAge: Int
+    storageUrl: String
+    thumbnailUrl: String
+    created: String
+}
+
+input PlaybackHistoryRequest {
+    userId: ID! 
+    contentId: Int!
+    watchedSeconds: Int!
+    userAgent: String!
+}
